@@ -1,0 +1,385 @@
+# CPT204 小组项目 - 城市基础设施巡检系统
+
+## 项目简介
+
+本项目是 CPT204 小组课程作业的一部分，是一个基于 Java 的面向对象应用程序。
+
+项目模拟了一个**城市基础设施巡检系统**。系统需要从多个候选地点数据集中筛选出最需要优先检查的地点，并基于城市道路网络计算这些地点之间的最短路径。
+
+本项目主要涉及以下内容：
+
+- Java 面向对象程序设计
+- 排序算法实现与性能比较
+- 图结构建模
+- 最短路径算法
+- 算法运行时间分析
+- 小组协作与项目管理
+
+项目的核心目标是：
+
+> 从三个候选地点数据集中选出高优先级巡检地点，并在加权城市道路图中计算指定地点之间的最短路径。
+
+---
+
+## 项目背景
+
+某城市计划进行一次大规模基础设施巡检任务。
+
+三个不同的信息来源分别提供了一批可能需要巡检的候选地点。每个候选地点都有一个优先级分数，分数越高，说明该地点越需要优先被检查。
+
+在筛选出高优先级地点后，系统会根据城市道路网络计算这些地点之间的最短路径，从而辅助巡检路线规划。
+
+---
+
+## 输入文件
+
+本项目使用以下 CSV 文件作为输入数据。
+
+### 候选地点数据文件
+
+```text
+candidates_A.csv
+candidates_B.csv
+candidates_C.csv
+```
+
+每个候选地点文件包含 1000 个候选地点，每一行包含：
+
+```text
+location_id
+priority_score
+```
+
+其中：
+
+- `location_id` 表示地点编号；
+- `priority_score` 表示该地点的巡检优先级分数，分数越高优先级越高。
+
+### 道路网络文件
+
+```text
+paths.csv
+```
+
+该文件表示一个无向加权图，每一行包含：
+
+```text
+from_location
+to_location
+weight
+```
+
+其中：
+
+- `from_location` 表示边的起点；
+- `to_location` 表示边的终点；
+- `weight` 表示两个地点之间的距离或通行成本。
+
+---
+
+## 项目主要功能
+
+### 1. 候选地点数据读取
+
+系统会读取三个候选地点数据集：
+
+```text
+candidates_A.csv
+candidates_B.csv
+candidates_C.csv
+```
+
+每个候选地点会被存储为一个对象，包含地点编号和优先级分数。
+
+---
+
+### 2. 排序算法实现与比较
+
+本项目实现并比较了三种排序算法：
+
+- Bubble Sort
+- Quick Sort
+- Merge Sort
+
+所有排序算法都使用相同的排序规则：
+
+1. 按照 `priority_score` 从高到低排序；
+2. 如果两个地点的 `priority_score` 相同，则按照 `location_id` 从小到大排序。
+
+对于每个数据集，系统会：
+
+- 使用三种排序算法分别进行排序；
+- 记录每种排序算法的运行时间；
+- 选出优先级最高的前 10 个地点。
+
+最终系统会选出 30 个重要巡检目标：
+
+```text
+Dataset A 的 Top 10
+Dataset B 的 Top 10
+Dataset C 的 Top 10
+```
+
+---
+
+### 3. 加权图构建
+
+系统会读取 `paths.csv`，并根据其中的边信息构建一个无向加权图。
+
+本项目使用邻接表存储图结构：
+
+```java
+Map<String, List<Edge>>
+```
+
+这种结构适合存储稀疏图，并且方便查找某个地点连接的所有相邻地点。
+
+---
+
+### 4. 最短路径计算
+
+本项目使用 **Dijkstra 算法** 计算加权图中的最短路径。
+
+系统需要完成以下四个路径查询任务：
+
+1. 从 Dataset A 中第 1 个 selected location 到它自己；
+2. 从 Dataset A 中第 1 个 selected location 到 Dataset A 中第 10 个 selected location；
+3. 从 Dataset A 中第 1 个 selected location 到 Dataset B 中第 1 个 selected location，并且必须经过 Dataset B 中第 5 个 selected location；
+4. 从 Dataset A 中第 1 个 selected location 到 Dataset C 中第 1 个 selected location，并且必须先经过 Dataset B 中第 5 个 selected location，再经过 Dataset C 中第 5 个 selected location。
+
+对于每个 case，程序会输出：
+
+- 起点；
+- 终点；
+- 必须经过的中间点；
+- 最短路径；
+- 总路径成本。
+
+---
+
+## 面向对象设计
+
+本项目采用面向对象方式进行设计，不同类负责不同功能。
+
+项目中主要包含以下类：
+
+```text
+Candidate
+Edge
+Graph
+PathResult
+CSVReader
+Sorter
+BubbleSort
+QuickSort
+MergeSort
+SortingExperiment
+DijkstraShortestPath
+Main
+```
+
+### 主要类说明
+
+| 类名 | 主要职责 |
+|---|---|
+| `Candidate` | 表示一个候选巡检地点 |
+| `Edge` | 表示图中的一条带权边 |
+| `Graph` | 存储无向加权图 |
+| `PathResult` | 保存最短路径和总成本 |
+| `CSVReader` | 负责读取 CSV 文件 |
+| `Sorter` | 排序算法的统一接口 |
+| `BubbleSort` | 实现冒泡排序 |
+| `QuickSort` | 实现快速排序 |
+| `MergeSort` | 实现归并排序 |
+| `SortingExperiment` | 运行排序实验并记录结果 |
+| `DijkstraShortestPath` | 实现 Dijkstra 最短路径算法 |
+| `Main` | 程序入口，整合完整流程 |
+
+---
+
+## 使用的面向对象原则
+
+本项目体现了以下面向对象设计原则：
+
+### 1. 封装 Encapsulation
+
+类中的数据字段使用 `private` 修饰，并通过方法进行访问和修改，从而保护对象内部数据。
+
+例如：
+
+```java
+private String locationId;
+private int priorityScore;
+```
+
+---
+
+### 2. 抽象 Abstraction
+
+通过 `Sorter` 接口抽象出排序行为，使不同排序算法拥有统一的调用方式。
+
+```java
+public interface Sorter {
+    void sort(List<Candidate> candidates);
+    String getName();
+}
+```
+
+---
+
+### 3. 多态 Polymorphism
+
+`BubbleSort`、`QuickSort` 和 `MergeSort` 都实现 `Sorter` 接口，因此可以通过统一的接口调用不同排序算法。
+
+例如：
+
+```java
+Sorter sorter = new QuickSort();
+sorter.sort(candidates);
+```
+
+---
+
+### 4. 职责分离 Separation of Responsibilities
+
+每个类只负责一个明确的功能：
+
+- `CSVReader` 只负责读取文件；
+- `Sorter` 及其实现类只负责排序；
+- `Graph` 只负责存储图；
+- `DijkstraShortestPath` 只负责计算最短路径；
+- `Main` 负责整合程序流程。
+
+这种设计可以提高代码的可读性、可维护性和扩展性。
+
+---
+
+## 程序运行流程
+
+系统整体运行流程如下：
+
+```text
+1. 读取 candidates_A.csv、candidates_B.csv 和 candidates_C.csv
+2. 使用 Bubble Sort、Quick Sort 和 Merge Sort 分别对三个数据集排序
+3. 记录并比较三种排序算法的运行时间
+4. 从每个数据集中选出 Top 10 高优先级地点
+5. 读取 paths.csv 并构建无向加权图
+6. 使用 Dijkstra 算法计算指定 case 的最短路径
+7. 输出排序结果、Top 10 地点、最短路径和总路径成本
+```
+
+---
+
+## 使用技术
+
+```text
+编程语言：Java
+数据格式：CSV
+排序算法：Bubble Sort, Quick Sort, Merge Sort
+图算法：Dijkstra's Algorithm
+程序设计方式：Object-Oriented Programming
+```
+
+---
+
+## 如何运行项目
+
+1. 使用 IntelliJ IDEA、Eclipse 或 VS Code 打开项目。
+
+2. 确保以下 CSV 文件已经放在正确的项目目录中：
+
+```text
+candidates_A.csv
+candidates_B.csv
+candidates_C.csv
+paths.csv
+```
+
+3. 编译所有 Java 源文件。
+
+4. 运行：
+
+```text
+Main.java
+```
+
+5. 程序会在控制台输出：
+
+```text
+排序算法运行时间
+每个数据集的 Top 10 selected locations
+四个最短路径 case 的结果
+每条路径的 total cost
+```
+
+---
+
+## 预期输出格式
+
+程序输出大致如下：
+
+```text
+===== Sorting Algorithm Evaluation =====
+
+Dataset A:
+Bubble Sort Time: ...
+Quick Sort Time: ...
+Merge Sort Time: ...
+Top 10 Locations: ...
+
+Dataset B:
+Bubble Sort Time: ...
+Quick Sort Time: ...
+Merge Sort Time: ...
+Top 10 Locations: ...
+
+Dataset C:
+Bubble Sort Time: ...
+Quick Sort Time: ...
+Merge Sort Time: ...
+Top 10 Locations: ...
+
+===== Shortest Path Results =====
+
+Case 1:
+Start: ...
+Destination: ...
+Path: ...
+Total Cost: ...
+
+Case 2:
+Start: ...
+Destination: ...
+Path: ...
+Total Cost: ...
+
+Case 3:
+Start: ...
+Waypoint: ...
+Destination: ...
+Path: ...
+Total Cost: ...
+
+Case 4:
+Start: ...
+Waypoints: ...
+Destination: ...
+Path: ...
+Total Cost: ...
+```
+
+---
+
+## 项目意义
+
+本项目展示了如何将课堂中学习的排序算法、图算法和面向对象设计应用到一个接近现实的问题场景中。
+
+通过该项目，我们能够：
+
+- 比较不同排序算法在不同数据集上的表现；
+- 理解加权图和最短路径算法的实际应用；
+- 设计结构清晰的 Java 面向对象程序；
+- 分析算法效率和数据结构选择；
+- 思考软件系统在城市基础设施管理中的潜在价值。
+
+本项目不仅关注程序是否能够运行，也关注算法选择是否合理、系统结构是否清晰，以及程序是否具有可维护性和扩展性。
