@@ -11,6 +11,10 @@ public class Location {
         return locationId;
     }
 
+    public String getId() {
+        return locationId;
+    }
+
     public double getPriorityScore() {
         return priorityScore;
     }
