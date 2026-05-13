@@ -4,36 +4,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /*
- * CSVReader 用于读取 candidates_A/B/C.csv 文件。
- * 每一行数据会被转换成一个 Location 对象，
- * 最后返回一个 ArrayList<Location>。
+ * CSVReader is responsible for reading candidate location files.
+ * In this project, it is mainly used in Task A to convert each CSV row into a Location object.
  */
 public class CSVReader {
 
     /*
-     * 读取候选地点 CSV 文件。
-     * filePath 是文件路径，例如 "data/candidates_A.csv"。
+     * Reads one candidates file, such as data/candidates_A.csv.
+     * The returned list will later be passed to different sorting algorithms.
      */
     public static ArrayList<Location> readCandidateFile(String filePath) {
 
-        // 用来保存读取到的所有地点
+        // Stores all locations read from the file
         ArrayList<Location> locations = new ArrayList<>();
 
-        // 使用 BufferedReader 按行读取 CSV 文件
+        // Read the file line by line
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 
             String line;
             boolean isFirstLine = true;
 
-            // 一行一行读取，直到文件结束
+            // Keep reading until the end of the file
             while ((line = br.readLine()) != null) {
 
-                // 跳过空行
+                // Skip blank lines so they do not affect the result
                 if (line.trim().isEmpty()) {
                     continue;
                 }
 
-                // 如果第一行是表头，就跳过
+                // If the first line is a header, do not treat it as data
                 if (isFirstLine) {
                     isFirstLine = false;
 
@@ -42,28 +41,29 @@ public class CSVReader {
                     }
                 }
 
-                // CSV 每一列用逗号分隔
+                // Each row in the candidates file is separated by commas
                 String[] parts = line.split(",");
 
-                // 正常情况下需要至少两列：location_id 和 priority_score
+                // Normally there should be at least two columns:
+                // location_id and priority_score
                 if (parts.length >= 2) {
                     String locationId = parts[0].trim();
 
-                    // 将字符串形式的分数转换成 double，方便后面排序
+                    // Convert the score from text to double for later comparisons
                     double priorityScore = Double.parseDouble(parts[1].trim());
 
-                    // 创建 Location 对象，并加入列表
+                    // Create a Location object for each row and add it to the list
                     locations.add(new Location(locationId, priorityScore));
                 }
             }
 
         } catch (IOException e) {
-            // 如果文件读取失败，打印错误信息
+            // Print an error message if the file path is incorrect
             System.out.println("Error reading file: " + filePath);
             e.printStackTrace();
         }
 
-        // 返回读取到的地点列表
+        // Return all location data from the current file
         return locations;
     }
 }

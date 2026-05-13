@@ -1,31 +1,25 @@
 import java.util.ArrayList;
 
 /*
- * SortingResult 类用于保存一次排序实验的结果。
- *
- * 它主要保存以下信息：
- * 1. 数据集名称，例如 Dataset A
- * 2. 使用的排序算法名称，例如 Bubble Sort
- * 3. 平均运行时间
- * 4. 排序后的 Top 10 地点
+ * SortingResult is a simple data class.
+ * It stores the result of one dataset under one sorting algorithm.
  */
 public class SortingResult {
 
-    // 数据集名称，例如 Dataset A、Dataset B、Dataset C
+    // Which dataset this result belongs to
     private String datasetName;
 
-    // 排序算法名称，例如 Bubble Sort、Quick Sort、Merge Sort
+    // Which sorting algorithm produced this result
     private String algorithmName;
 
-    // 多次运行后的平均时间，单位是毫秒
+    // Average running time after multiple runs, in milliseconds
     private double averageTimeMs;
 
-    // 当前数据集排序后的前 10 个地点
+    // Top 10 locations after sorting
     private ArrayList<Location> top10Locations;
 
     /*
-     * 构造方法。
-     * 创建 SortingResult 对象时，需要传入完整的排序结果信息。
+     * Creates one complete sorting result object.
      */
     public SortingResult(String datasetName, String algorithmName,
                          double averageTimeMs, ArrayList<Location> top10Locations) {
@@ -36,28 +30,28 @@ public class SortingResult {
     }
 
     /*
-     * 返回数据集名称。
+     * Returns the dataset name.
      */
     public String getDatasetName() {
         return datasetName;
     }
 
     /*
-     * 返回排序算法名称。
+     * Returns the sorting algorithm name.
      */
     public String getAlgorithmName() {
         return algorithmName;
     }
 
     /*
-     * 返回平均运行时间。
+     * Returns the average running time.
      */
     public double getAverageTimeMs() {
         return averageTimeMs;
     }
 
     /*
-     * 返回 Top 10 地点列表。
+     * Returns the Top 10 location list.
      */
     public ArrayList<Location> getTop10Locations() {
         return top10Locations;
