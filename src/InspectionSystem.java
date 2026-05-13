@@ -50,6 +50,11 @@ public class InspectionSystem {
         runTaskB(selectedTargets);
     }
 
+    public void runTaskAOnly() {
+        System.out.println("=== Task A: Sorting Algorithm ===");
+        runTaskA();
+    }
+
     private void runTaskA() {
         for (int i = 0; i < datasetNames.size(); i++) {
             String datasetName = datasetNames.get(i);

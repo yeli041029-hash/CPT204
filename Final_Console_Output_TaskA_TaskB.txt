@@ -1,0 +1,88 @@
+=== Task A: Sorting Algorithm ===
+======================================
+Dataset A
+======================================
+Algorithm: Bubble Sort
+Average Time: 0.4475 ms
+Top 10 Locations: L0001(10000.0) L0002(9999.0) L0003(9998.0) L0004(9997.0) L0005(9996.0) L0006(9995.0) L0007(9994.0) L0008(9993.0) L0009(9992.0) L0010(9991.0) 
+
+Algorithm: Quick Sort
+Average Time: 6.2776 ms
+Top 10 Locations: L0001(10000.0) L0002(9999.0) L0003(9998.0) L0004(9997.0) L0005(9996.0) L0006(9995.0) L0007(9994.0) L0008(9993.0) L0009(9992.0) L0010(9991.0) 
+
+Algorithm: Merge Sort
+Average Time: 0.8450 ms
+Top 10 Locations: L0001(10000.0) L0002(9999.0) L0003(9998.0) L0004(9997.0) L0005(9996.0) L0006(9995.0) L0007(9994.0) L0008(9993.0) L0009(9992.0) L0010(9991.0) 
+
+
+======================================
+Dataset B
+======================================
+Algorithm: Bubble Sort
+Average Time: 8.1702 ms
+Top 10 Locations: L0101(10000.0) L0102(9999.0) L0103(9998.0) L0104(9997.0) L0105(9996.0) L0106(9995.0) L0107(9994.0) L0108(9993.0) L0109(9992.0) L0110(9991.0) 
+
+Algorithm: Quick Sort
+Average Time: 0.0747 ms
+Top 10 Locations: L0101(10000.0) L0102(9999.0) L0103(9998.0) L0104(9997.0) L0105(9996.0) L0106(9995.0) L0107(9994.0) L0108(9993.0) L0109(9992.0) L0110(9991.0) 
+
+Algorithm: Merge Sort
+Average Time: 0.3926 ms
+Top 10 Locations: L0101(10000.0) L0102(9999.0) L0103(9998.0) L0104(9997.0) L0105(9996.0) L0106(9995.0) L0107(9994.0) L0108(9993.0) L0109(9992.0) L0110(9991.0) 
+
+
+======================================
+Dataset C
+======================================
+Algorithm: Bubble Sort
+Average Time: 1.0391 ms
+Top 10 Locations: L0201(5000.0) L0202(5000.0) L0203(5000.0) L0204(5000.0) L0205(5000.0) L0206(5000.0) L0207(5000.0) L0208(5000.0) L0209(5000.0) L0210(5000.0) 
+
+Algorithm: Quick Sort
+Average Time: 0.3831 ms
+Top 10 Locations: L0201(5000.0) L0202(5000.0) L0203(5000.0) L0204(5000.0) L0205(5000.0) L0206(5000.0) L0207(5000.0) L0208(5000.0) L0209(5000.0) L0210(5000.0) 
+
+Algorithm: Merge Sort
+Average Time: 0.4379 ms
+Top 10 Locations: L0201(5000.0) L0202(5000.0) L0203(5000.0) L0204(5000.0) L0205(5000.0) L0206(5000.0) L0207(5000.0) L0208(5000.0) L0209(5000.0) L0210(5000.0) 
+
+
+=== Task C: Integrated Application ===
+Final sorter used for integrated system: Merge Sort
+Dataset A Top 10: L0001(10000.0) L0002(9999.0) L0003(9998.0) L0004(9997.0) L0005(9996.0) L0006(9995.0) L0007(9994.0) L0008(9993.0) L0009(9992.0) L0010(9991.0) 
+Dataset B Top 10: L0101(10000.0) L0102(9999.0) L0103(9998.0) L0104(9997.0) L0105(9996.0) L0106(9995.0) L0107(9994.0) L0108(9993.0) L0109(9992.0) L0110(9991.0) 
+Dataset C Top 10: L0201(5000.0) L0202(5000.0) L0203(5000.0) L0204(5000.0) L0205(5000.0) L0206(5000.0) L0207(5000.0) L0208(5000.0) L0209(5000.0) L0210(5000.0) 
+
+=== Task B: Graph Algorithm ===
+Case Name: Case 1
+Starting Node: L0001
+Destination Node: L0001
+Required Waypoint: None
+Case 1 Result:
+Path: L0001
+Total Cost: 0.0
+
+Case Name: Case 2
+Starting Node: L0001
+Destination Node: L0010
+Required Waypoint: None
+Case 2 Result:
+Path: L0001 -> L0340 -> L0339 -> L0895 -> L0894 -> L0082 -> L0284 -> L0010
+Total Cost: 27.0
+
+Case Name: Case 3
+Starting Node: L0001
+Destination Node: L0101
+Required Waypoint: L0105
+Case 3 Result:
+Path: L0001 -> L0340 -> L0339 -> L0247 -> L0017 -> L0128 -> L0107 -> L0106 -> L0105 -> L0106 -> L0107 -> L0108 -> L0827 -> L0996 -> L0101
+Total Cost: 39.0
+
+Case Name: Case 4
+Starting Node: L0001
+Destination Node: L0201
+Required Waypoint: L0105 -> L0205
+Case 4 Result:
+Path: L0001 -> L0340 -> L0339 -> L0247 -> L0017 -> L0128 -> L0107 -> L0106 -> L0105 -> L0106 -> L0107 -> L0108 -> L0243 -> L0242 -> L0241 -> L0385 -> L0205 -> L0201
+Total Cost: 48.0
+
